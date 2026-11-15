@@ -1,7 +1,0 @@
-name: Shabbos Mode Local
-packageKey: shabbos-mode-local-v1
-description: Offline Shabbos and Yom Tov calendar switch with local sunset calculations.
-vendorSupportInformation: Personal custom driver; see the included README.
-permissions:
-  lan: {}
-  discovery: {}

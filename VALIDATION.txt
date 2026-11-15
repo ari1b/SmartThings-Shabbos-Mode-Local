@@ -1,0 +1,30 @@
+Shabbos Mode Local 1.0 — validation record
+Date: November 13, 2026
+
+PASS: 27,028 Gregorian/Hebrew dates, 2026-2099, against pyluach.
+PASS: All Shabbos/Yom Tov day flags in both Israel and diaspora calendars for those dates.
+PASS: 1,512 sunset cases across 7 locations and 6 years against Astral.
+      Largest absolute difference: 22.6 seconds at sea level.
+PASS: 554 natural transition boundaries: one second before, exactly at, one second after.
+PASS: Consecutive Shabbos/Yom Tov periods, Israel/diaspora differences,
+      Honolulu UTC-date crossing, elevation direction, exact adjustment, invalid inputs.
+PASS: Simulated SmartThings lifecycle and commands under Lua 5.3:
+      startup, disabled/manual operation, enabling, natural transitions,
+      five-minute manual hold, Refresh, restart, persisted override,
+      invalid settings, invalid clock, clock jumps, discovery, device removal.
+PASS: All runtime Lua source compiles in Lua 5.3; YAML profile and defaults verified.
+PASS: Official SmartThings CLI 3.0.1 builds shabbos-mode-local-driver.zip with --build-only.
+
+NOT PERFORMED: Authentication to the user's account, cloud upload, installation
+on physical SmartThings hardware, real device UI rendering, and execution of
+user routines on the hub. Simulated APIs do not prove firmware compatibility.
+Follow the setup guide's independent switch test and verify actual entry/exit
+before depending on the new trigger.
+
+Runtime: Pure Lua; no third-party runtime packages are included.
+Developer reference packages: lupa 2.8; pyluach; astral; pyyaml.
+See tests/ for the reproducible checks and README.md for commands.
+lupa: 2.8
+pyluach: 2.3.0
+astral: 3.2
+pyyaml: 6.0.3

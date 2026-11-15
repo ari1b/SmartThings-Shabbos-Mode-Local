@@ -1,0 +1,6 @@
+{
+  "name": "Shabbos Local Private",
+  "description": "Personal local Shabbos and Yom Tov scheduling driver",
+  "termsOfServiceUrl": "https://opensource.org/license/mit",
+  "type": "DRIVER"
+}

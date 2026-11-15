@@ -98,8 +98,8 @@ Open **Shabbos Mode Local → three-dot menu → Settings**. Initially leave **A
 | Setting | Initial value / action |
 | --- | --- |
 | Automatic scheduling | **OFF** while configuring and testing |
-| Latitude | Set your address's decimal latitude. Example Bergenfield NJ: **40.9276** |
-| Longitude | Set your address's decimal longitude. Example Bergenfield NJ: **-73.9974**; west must be negative |
+| Latitude | Set your address's decimal latitude. Example NYC, NY: **40.730610** |
+| Longitude | Set your address's decimal longitude. Example NYC, NY: **-73.935242**; west must be negative |
 | Minutes before sunset | **18**, or your chosen candle-lighting offset |
 | Minutes after sunset | **72**, or your chosen fixed Havdalah offset |
 | Include Yom Tov | **ON** to reproduce Shabbos + Yom Tov behavior |
@@ -107,7 +107,7 @@ Open **Shabbos Mode Local → three-dot menu → Settings**. Initially leave **A
 | Elevation in meters | **0** for standard sea-level sunset; change only if matching an elevation-adjusted schedule |
 | Sunset adjustment minutes | **0** normally; changes both entry and exit times |
 
-Use your actual coordinates rather than assuming the sample is your house. Copy decimal coordinates from a map; use a decimal point, not a comma. The device defaults are an approximate Bergenfield example and have not been obtained from your existing AWS configuration.
+Use your actual coordinates rather than assuming the sample is your house. Copy decimal coordinates from a map; use a decimal point, not a comma. The device defaults are an approximate NYC example and have not been obtained from your existing AWS configuration.
 
 No timezone setting is required. Calculations use the geographic Gregorian day and absolute UTC timestamps. DST is handled naturally, without changing offsets twice a year. The driver does not rely on the hub's local timezone to calculate an event; the hub must still have a correct clock.
 

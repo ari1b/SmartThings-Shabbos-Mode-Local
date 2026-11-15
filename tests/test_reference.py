@@ -52,7 +52,7 @@ def main():
     maximum_error = 0
     solar_count = 0
     locations = {
-        'Bergenfield': (40.9276, -73.9974), 'Jerusalem': (31.778, 35.235),
+        'NYC': (40.7572, -73.8462), 'Jerusalem': (31.778, 35.235),
         'London': (51.5074, -0.1278), 'Los Angeles': (34.0522, -118.2437),
         'Honolulu': (21.3099, -157.8581), 'Sydney': (-33.8688, 151.2093),
         'Auckland': (-36.8485, 174.7633),

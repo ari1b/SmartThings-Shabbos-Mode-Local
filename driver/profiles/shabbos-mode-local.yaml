@@ -1,0 +1,88 @@
+name: shabbos-mode-local.v1
+components:
+  - id: main
+    capabilities:
+      - id: switch
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: Switch
+preferences:
+  - name: autoEnabled
+    title: Automatic scheduling
+    description: Enable after configuring location and offsets. Enabling immediately sets the calculated current state.
+    required: true
+    preferenceType: boolean
+    definition:
+      default: false
+  - name: latitude
+    title: Latitude
+    description: Decimal degrees. North positive, south negative. Default is an example in NYC NY; verify your address.
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      minLength: 1
+      maxLength: 16
+      default: "40.757256"
+  - name: longitude
+    title: Longitude
+    description: Decimal degrees. West NEGATIVE. Example NYC NY is -73.846237.
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      minLength: 1
+      maxLength: 16
+      default: "-73.846237"
+  - name: candleMinutes
+    title: Minutes before sunset
+    description: Start before sunset at the beginning of a continuous Shabbos or Yom Tov period.
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 120
+      default: 18
+  - name: havdalahMinutes
+    title: Minutes after sunset
+    description: Fixed minutes after sunset when the entire Shabbos or Yom Tov period ends. Not an angular zman.
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 180
+      default: 72
+  - name: includeYomTov
+    title: Include Yom Tov
+    description: Includes Rosh Hashanah, Yom Kippur, first and last days of Sukkos/Pesach, and Shavuos.
+    required: true
+    preferenceType: boolean
+    definition:
+      default: true
+  - name: israel
+    title: Israel holiday calendar
+    description: OFF for New Jersey and other diaspora locations. ON for Israel holiday lengths.
+    required: true
+    preferenceType: boolean
+    definition:
+      default: false
+  - name: elevationMeters
+    title: Elevation in meters
+    description: Zero uses standard sea-level sunset. Positive values include geometric horizon dip; not terrain shading.
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 3000
+      default: 0
+  - name: sunsetAdjustment
+    title: Sunset adjustment minutes
+    description: Added to calculated sunset for BOTH start and end. Positive shifts both later; normally leave zero.
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: -30
+      maximum: 30
+      default: 0

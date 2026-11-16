@@ -1,0 +1,6 @@
+capabilities/registered-capability.json
+*.zip
+__pycache__/
+.enum-fix-backup/
+capabilities/registered-compact-capability.json
+.compact-repair-backup/

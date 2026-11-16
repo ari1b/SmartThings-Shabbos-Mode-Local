@@ -1,6 +1,6 @@
 # Shabbos Mode Local — installation guide
 
-Version 1.0
+Version 1.2
 
 This custom SmartThings Edge driver creates **Shabbos Mode Local**, a virtual switch whose Shabbos/Yom Tov schedule runs on your hub. It calculates the Hebrew calendar and sunset locally, without AWS, PATs, a calendar API, a subscription, or an always-on computer.
 
@@ -48,12 +48,27 @@ Open **Shabbos Mode Local → three-dot menu → Settings**. Initially leave **A
 | Israel holiday calendar | **OFF** outside Israel; **ON** for Israel holiday lengths |
 | Elevation in meters | **0** for standard sea-level sunset; change only if matching an elevation-adjusted schedule |
 | Sunset adjustment minutes | **0** normally; changes both entry and exit times |
+| Display timezone | **America/New_York** by default; controls only the event display |
 
 Use your actual coordinates. Copy decimal coordinates from a map; use a decimal point, not a comma. The device defaults have not been obtained from your existing configuration.
 
-No timezone setting is required. Calculations use the geographic Gregorian day and absolute UTC timestamps. DST is handled naturally, without changing offsets twice a year. The driver does not rely on the hub's local timezone to calculate an event; the hub must still have a correct clock.
+No timezone setting is required for scheduling. Display timezone changes only the displayed time. Calculations use the geographic Gregorian day and absolute UTC timestamps. DST is handled naturally, without changing offsets twice a year. The driver does not rely on the hub's local timezone to calculate an event; the hub must still have a correct clock.
 
 **Match your old settings:** This v1 supports a fixed number of minutes after sunset. It does not implement a solar-angle or seasonal-minute Havdalah method. Sea-level vs elevation-adjusted sunset, rounding, and different astronomy libraries can produce small differences from a printed calendar.
+
+## Next two events display
+
+The device page uses fixed headings **Next event** and **Following event**. Each value contains a short action/date line and a short local-time line, for example `ON 11/20` and `4:15 PM`. Dates are month/day. The selected Display timezone determines both cells; the timezone can be checked in Settings.
+
+SmartThings controls the font and column sizes. This layout avoids attribute templates in headings and long sentences in values. Each time line has at most eight characters. Actual rendering still depends on the mobile app and accessibility settings.
+
+A **~** prefix indicates a preview while automatic scheduling is OFF. A **\*** prefix indicates return from a manual override. The next actual return from an opposite manual hold appears before the next natural calendar event. Refresh cancels the hold and forcibly resends all display values.
+
+Display timezone defaults to **America/New_York**, with automatic EST/EDT handling for the date of each event. Other supported zones include US Central, Mountain, Pacific, Arizona, Alaska, Hawaii, UK, Central Europe, Israel, Sydney and UTC. Display settings do not change switching calculations.
+
+The calendar and scheduling core are unchanged. The following event is cached until settings or the next event change; it does not add another schedule calculation to unchanged minute checks.
+
+**Existing devices:** Keep the existing device and routines. See **UPGRADE.md** for the in-place repair if the previous compact display showed literal template labels or blank values. The repair uses the registered capability ID already in your local source.
 
 ## 4. Test the new switch before changing real routines
 

@@ -1,30 +1,42 @@
-Shabbos Mode Local 1.0 — validation record
-Date: November 13, 2026
+Shabbos Mode Local 1.2 — compact next-two-events display
 
-PASS: 27,028 Gregorian/Hebrew dates, 2026-2099, against pyluach.
-PASS: All Shabbos/Yom Tov day flags in both Israel and diaspora calendars for those dates.
-PASS: 1,512 sunset cases across 7 locations and 6 years against Astral.
-      Largest absolute difference: 22.6 seconds at sea level.
-PASS: 554 natural transition boundaries: one second before, exactly at, one second after.
-PASS: Consecutive Shabbos/Yom Tov periods, Israel/diaspora differences,
-      Honolulu UTC-date crossing, elevation direction, exact adjustment, invalid inputs.
-PASS: Simulated SmartThings lifecycle and commands under Lua 5.3:
-      startup, disabled/manual operation, enabling, natural transitions,
-      five-minute manual hold, Refresh, restart, persisted override,
-      invalid settings, invalid clock, clock jumps, discovery, device removal.
-PASS: All runtime Lua source compiles in Lua 5.3; YAML profile and defaults verified.
-PASS: Official SmartThings CLI 3.0.1 builds shabbos-mode-local-driver.zip with --build-only.
+PASS:
+- 27,028 Gregorian/Hebrew dates and both holiday calendars (2026-2099).
+- 1,512 sunsets vs Astral, largest difference 22.6 seconds.
+- 554 natural transition boundaries and the existing lifecycle tests.
+- 4,020 timezone-format cases; API-safe preference keys resolve to the same zones.
+- Chronological two-event order for ordinary schedule and manual-override return.
+- Large time strings contain at most 8 characters across bundled timezone transitions.
+- Disabled preview labels; unchanged schedule/status diagnostic values retained.
+- Following-event cache adds no second schedule evaluation on unchanged minute checks.
+- Profile migration, display-error isolation and no duplicate display events.
+- All enum option keys satisfy the API word-character pattern, every label <=36 chars,
+  default is in the option set and every option has a valid timezone mapping.
+- PowerShell scripts parse/run against the offline fake CLI harness under PowerShell 7.7.
+- Separate registration-response path for the new compact display capability.
+- Official SmartThings CLI 3.0.1 builds a fixture package with a namespaced capability ID.
 
-NOT PERFORMED: Authentication to the user's account, cloud upload, installation
-on physical SmartThings hardware, real device UI rendering, and execution of
-user routines on the hub. Simulated APIs do not prove firmware compatibility.
-Follow the setup guide's independent switch test and verify actual entry/exit
-before depending on the new trigger.
+Calendar.lua, solar.lua and schedule.lua are unchanged from the recorded baseline.
+The profile moves to v3; package key, device network ID and switch capability stay unchanged.
+A separate display capability is created rather than modifying the v1.1 presentation.
 
-Runtime: Pure Lua; no third-party runtime packages are included.
-Developer reference packages: lupa 2.8; pyluach; astral; pyyaml.
-See tests/ for the reproducible checks and README.md for commands.
-lupa: 2.8
-pyluach: 2.3.0
-astral: 3.2
-pyyaml: 6.0.3
+NOT PERFORMED: Actual capability registration under the user's account, firmware profile
+migration or mobile UI rendering. SmartThings owns font sizes/column widths. The compact
+label templates need the private-channel visual check on the user's phone.
+
+compact-fix-1 regression checks:
+- Fixed (non-template) headings; date/time are emitted in the supported value attribute.
+- SDK-reported state is used for deduplication instead of attempted local emission.
+- Missing/dropped reported values are retried; Refresh forces all six fields to resend.
+- Missing profile support is reported on explicit refresh rather than silently skipped.
+- Definition reload on explicit refresh; actual display errors are logged even if repeated.
+- In-place PowerShell repair preserves registered capability ID and profile; no new capability.
+- Calendar/solar/scheduling baseline hashes remain unchanged.
+The supplied logs showed a working calendar and no emitted display values, but did not
+identify a definitive runtime root cause. The repair adds both recovery and diagnostics;
+physical hub emission and mobile rendering still need verification.
+
+Presentation operation regression:
+- Fake CLI now enforces create=409 when presentation exists, update=404 when absent.
+- Initial setup creates; repeat setup probes and updates; repair always updates.
+- Repair operation validated with an existing presentation, preserving capability ID.
